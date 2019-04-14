@@ -1,0 +1,31 @@
+* Darkness.
+
+  Should you automatically die in the dark once you reach the Maze/Lair
+  area?
+
+* Chain troubles.
+
+  What should happen to the loop of chain and padlock after you
+  rip down the wall? Should the chain be visible in the shaft (but
+  not takeable)? Should it be gone? etc.
+
+  If you have the chain hooked and either in your possession or on
+  the ground (in the Basement, for example), should the elevator
+  doors be able to close? What should you see? etc. etc.
+
+* Logging in.
+
+  Should it accept anything as an object for TYPE, LOGIN or PASSWORD?
+  Unfortunately, this is probably not easy to do.
+
+* Urchin.
+
+  Any ideas for better hints about what you need to do to him?
+
+* Vocabulary.
+
+  Max's Gary List (tm) hasn't gotten very much attention, due to the
+  horrific space problems.  What's really essential?
+
+  Should the words in the browsie (things like FOODP and such) be
+  understood? They could all be effectively synonyms for HACK.

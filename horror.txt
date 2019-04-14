@@ -1,0 +1,81 @@
+--Initial--
+
+King/Lovecraft milieu.  I.e., normal situation that becomes more and
+more horrific.  Much of it underground?
+
+* Major obstacle: something Cthulhuoid that can (a) possess people
+  (b) duplicate people/things perfectly.  (Like original version of
+  "The Thing.")  Perhaps it's even an (at base) mechanical creature,
+  or a hive intelligence?  Of course, it's totally supernatural in its
+  abilities (this is deliberate, as it accentuates the feeling of
+  violation of natural law that occasions horror).
+
+  Perhaps this thing initially seems to be a vampire?  Then you can
+  have the fun of thinking you know the solution (crosses/stakes, etc.)
+  and being totally wrong.  It could even chortlingly suck you in and
+  then turn on you.
+
+  Thing should have an evil human assistant who is one of the obstacles
+  (like Renfield in Dracula).  This could be a scientist who thinks it's
+  a higher/better form of life.
+
+* Nightmare sequence that appears real and turns out to be real (at
+  least in part).
+
+* What is horrible?  Not just gore.  Gore is boring, and besides,
+  gore is visual.  Something sneaking up behind you is scarier,
+  particularly since you are sitting at a terminal and can't turn
+  around.
+
+* Ultimate problem is getting into its "burrow", where it's building
+  thousands/millions/zillions! of similar creatures to take over the
+  world.  How do you stop it?  Good question!
+
+--4/7/86--
+
+Set the game in an MIT-like environment.  This allows a computer
+sequence.  Perhaps the frob has wormed its way into an Athena-like
+LAN.
+
+Frob has lived under the ground forever.  Every so often, activity
+on the surface disturbs it.  Indians, Puritans, etc.  Now, new
+construction at the university has awakened it.  (Perhaps the evil
+professor detected it?)  It's snarfing undergrads for various uses,
+such as raw material for its offspring.  It's tapping into the
+phone and network lines.
+
+How much gore?  For example, if the frob is taking over people, they
+could be pretty gored up.  Even worse if it's laying eggs in them,
+and the froblets are hatching (yuck).  I'm reminded of the baby
+dragons eating the princess in Dragonslayer.  There's also the whole
+Stephen King tradition of rotting bodies to consider.
+
+--4/14/86--
+
+Write in first person.
+
+--4/16/86--
+
+Some events:
+
+* Bargaining with a hacker for (a) access to a computer or account
+  you can't otherwise get into. (b) master keys.
+
+* Rats in a subbasement with a dirt floor.
+
+* Mob of enslaved Cambridge urchins.
+
+* Return from the dead of a helper (perhaps the hacker).  Tries to convince
+  you it's all for the best.
+
+Some interesting places:
+
+* Tomb of the Unknown Tool.
+
+* Plasma Fusion Center.
+
+* Steam tunnels (including blocked-off ones).
+
+* Top of Green Building.
+
+* Computer Center.

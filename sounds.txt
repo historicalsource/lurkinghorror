@@ -1,0 +1,24 @@
+
+sound ids	(sounds marked with a * are looping sounds)
+
+S-BEEP 1
+S-BOOP 2
+S-DRONE 10	33K * drone of frob worshippers in dream
+S-BLOOD 3	50K axe hitting maintenance man
+S-HATCH 6	46K rusty hatch in tomb opening
+S-ATTACK 4	21K * rats attacking
+S-ELCRSH 7	60K elevator pulling wall out
+S-DIE 12	44K flier after stone thrown at it
+S-PSYCHO 13	57K * demon in alchemy lab getting prof
+S-MONSTR 18	50K * things in pit in altar area
+S-VOICE 15	52K * zombie urchins chanting
+S-ZOMBIE 17	39K * frob noises in inner lair
+S-SPARKY 11	40K electrical zap of high voltage line in water
+S-CRETIN 16	25K * frob frying with high voltage electricity
+S-CRACK 8	 8K crack of stone
+S-GHIDRA 9	58K frob flapping away
+
+sounds cut for reasons of space
+
+S-SQUEAL 5	23K single rat
+S-STORMY 14	54K * storm

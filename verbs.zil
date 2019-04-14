@@ -198,6 +198,7 @@
 S "Do you wish to ""leave the game">
 			 <YES?>>
 		    <NOT .ASK?>>
+		%<IFSOUND <KILL-SOUNDS>>
 		<QUIT>)
 	       (T
 		<TELL ,OKAY>)>>
@@ -208,6 +209,7 @@ S "Do you wish to ""leave the game">
 	 <TELL S "Do you wish to ""restart">
 	 <COND (<YES?>
 		<TELL "Restarting." CR>
+		%<IFSOUND <KILL-SOUNDS>>
 		<RESTART>
 		<TELL ,FAILED>)>>
 
@@ -216,6 +218,7 @@ S "Do you wish to ""leave the game">
 <GLOBAL FAILED "Failed.|">
 
 <ROUTINE FINISH ()
+	 %<IFSOUND <KILL-SOUNDS>>
 	 <USL>
 	 <CRLF>
 	 %<DEBUG-CODE <TELL-C-INTS>>
@@ -249,14 +252,25 @@ game position, or end this session of the game?" CR>
 	       (T
 		<RFALSE>)>>
 
-<ROUTINE V-RESTORE ()
-	 <COND (<RESTORE> <RTRUE>)
+<ROUTINE V-RESTORE ("AUX" X Y)
+	 <SET X <GET ,SOUND-FLAG 0>>
+	 %<IFSOUND <KILL-SOUNDS>>
+	 <COND (<RESTORE>
+		<RTRUE>)
 	       (T
+		%<IFSOUND <COND (<G? .X 1>
+				 <SOUNDS </ .X 16>
+					 ,S-START
+					 <MOD .X 16>>)>>
 		<TELL ,FAILED>)>>
 
 <ROUTINE V-SAVE ("AUX" X)
 	 <PUTB ,OOPS-INBUF 1 0>
 	 <SET X <SAVE>>
+	 %<IFSOUND <COND (<G? <GET ,SOUND-FLAG 0> 1>
+			  <SOUNDS </ <GET ,SOUND-FLAG 0> 16>
+				  ,S-START
+				  <MOD <GET ,SOUND-FLAG 0> 16>>)>>
 	 <COND (<ZERO? .X>
 	        <TELL ,FAILED>)
 	       (ELSE
@@ -694,7 +708,7 @@ they are identical." CR>)
 
 <ROUTINE PRE-GIVE ()
 	 <COND (<AND <WINNER? ,PLAYER>
-		     <NOT <HELD? ,PRSO>>
+		     <NOT <HELD? ,PRSO>>>
 		<TELL
 ,YOU-HAVE-TO "get it first." CR>)>>
 
@@ -1774,19 +1788,19 @@ to take it as well." CR>)>
 
 ;"subtitle movement"
 
-<CONSTANT REXIT 0>
-<CONSTANT UEXIT 1>
-<CONSTANT NEXIT 2>
-<CONSTANT FEXIT 3>
-<CONSTANT CEXIT 4>
-<CONSTANT DEXIT 5>
+;<CONSTANT REXIT 0>
+;<CONSTANT UEXIT 1>
+;<CONSTANT NEXIT 2>
+;<CONSTANT FEXIT 3>
+;<CONSTANT CEXIT 4>
+;<CONSTANT DEXIT 5>
 
-<CONSTANT NEXITSTR 0>
-<CONSTANT FEXITFCN 0>
-<CONSTANT CEXITFLAG 1>
-<CONSTANT CEXITSTR 1>
-<CONSTANT DEXITOBJ 1>
-<CONSTANT DEXITSTR 1>
+;<CONSTANT NEXITSTR 0>
+;<CONSTANT FEXITFCN 0>
+;<CONSTANT CEXITFLAG 1>
+;<CONSTANT CEXITSTR 1>
+;<CONSTANT DEXITOBJ 1>
+;<CONSTANT DEXITSTR 1>
 
 ;<ROUTINE LKP (ITM TBL "AUX" (CNT 0) (LEN <GET .TBL 0>))
 	 <REPEAT ()

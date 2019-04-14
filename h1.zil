@@ -14,6 +14,12 @@
 <SETG ZDEBUGGING? <>>	;"don't include debugging code"
 <SETG NEW-VOC? T>	;"allows words to be adj/noun/verb all at once!"
 <SET REDEFINE T>	;"don't stop and ask"
+<SETG SOUND-EFFECTS? T>	;"include sound effects?"
+
+<DEFINE IFSOUND ("ARGS" FOO)
+	<COND (,SOUND-EFFECTS?
+	       <FORM PROG () !.FOO>)
+	      (ELSE T)>>
 
 <INSERT-FILE "MISC">
 <INSERT-FILE "PARSER">

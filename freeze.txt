@@ -1,0 +1,16 @@
+BUGS
+
+* Chain vs. closed elevator doors.
+
+* Can't reference manhole cover/manhole from Brick Tunnel.
+
+VOCABULARY
+
+* PROF'S PENTAGRAM
+* PHOTO, POEM, MOUTH	(things you see in strange paper)
+
+THINGS TO DO
+
+* Remove PLUGH and XYZZY
+
+* Move common interrupts into INTERRUPTS

@@ -1,0 +1,41 @@
+THE LURKING HORROR Pre-Beta
+
+1. The game is too big (127K already). I can do some text compression
+   and such, but...  Anything to cut?
+     Possibilities:
+      * roof and even 3rd floor of Computer Center.
+      * One room of the dream sequence. etc.
+      (This sort of thing doesn't save much space, really)
+   Also doing some editing on particularly bloated text passages will
+   help.
+
+2. Some think the ending is anti-climactic after the mass is fried.
+   Particularly, throwing the stone is a "repeat" solution. I happen
+   to like it, personally. Any ideas for a different solution for this
+   puzzle (or, perhaps a different one for getting rid of the flying
+   monster).
+
+3. Is the elevator puzzle getting smoothed out enough?  It is very
+   complex (means takes a lot of space).  Some think it's too hard,
+   others too easy.  Comments, please!
+    Points to consider:
+     * anything else that the chain should tie/hook to.
+     * is the padlock a good idea? i.e., should there be an easier
+       way to secure the chain to the rod?
+     * is having the chain in the elevator pit too much of a giveaway?
+
+4. Object locations.  Any that are too obvious, too unobvious, etc?
+   Particularly, the floor wax and axe have been mentioned as too obviously
+   associated with the maintenance man.
+
+5. Story questions.  Does it matter that there's really no full explanation
+   of what's going on?  I don't think it does, and it would take up a lot
+   of space.  I'm curious what YOU think is going on.
+
+6. Scoring. Currently you end up with over 100 points. I could cut the
+   points-per-puzzle to bring that down, or: anything you get points for
+   that you shouldn't?
+
+7. Vocabulary/Missing objects.  What's most important?  Bearing in mind the
+   size crunch, what needs to be added?
+ 

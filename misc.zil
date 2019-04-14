@@ -499,7 +499,7 @@ machine, get to work, and write that twenty page paper." CR CR>
 		<RTRUE>)
 	       (<VERB? QUIT VERSION BRIEF SUPER-BRIEF VERBOSE
 		       $VERIFY RESTART SAVE RESTORE SCRIPT UNSCRIPT
-		       $RANDOM $COMMAND $RECORD $UNRECORD SCORE
+		       $SOUND $RANDOM $COMMAND $RECORD $UNRECORD SCORE
 		       TIME>
 		<RTRUE>)>>
 

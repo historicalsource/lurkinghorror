@@ -869,6 +869,7 @@ then at last lies still." CR>)>)
 	 <COND (<HERE? ,KITCHEN>
 		<CRLF>
 		<COND (<ZERO? ,MICROWAVE-TIMER>
+		       ;"%<IFSOUND <SOUNDS ,S-BEEP>>"
 		       <TELL ,MICROWAVE-STOPS>)>
 		<TELL-TIMER>)>>
 

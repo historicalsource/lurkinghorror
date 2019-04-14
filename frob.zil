@@ -43,7 +43,7 @@ something into a semblance of a passage.")
       (ACTION LARGE-CHAMBER-F)>
 
 <ROUTINE LAIR-EXIT ()
-	 <COND (,URCHIN-FLAG
+	 <COND (<FSET? ,URCHINS ,RMUNGBIT> ;,URCHIN-FLAG
 		<TELL
 "A few of the urchins grab feebly at you as you pass, but none is a
 serious barrier." CR CR>
@@ -60,7 +60,7 @@ but effectively. Their pale, limp hands can't grab you, but they can
 stop you. There is no way past." CR>
 		<RFALSE>)>>
 
-<GLOBAL URCHIN-FLAG <>>
+;<GLOBAL URCHIN-FLAG <>>
 
 <ROUTINE LARGE-CHAMBER-F (RARG)
 	 <COND (<RARG? LOOK>
@@ -69,7 +69,7 @@ stop you. There is no way past." CR>
 The walls are slimy as well. Numerous slots or
 indentations about two feet wide and a foot high open here and there. ">
 		<COND (<LOC ,URCHINS>
-		       <COND (,URCHIN-FLAG
+		       <COND (<FSET? ,URCHINS ,RMUNGBIT> ;,URCHIN-FLAG
 			      <TELL
 "Stubs of the wire still ">)
 			     (ELSE
@@ -82,7 +82,7 @@ background noise here, almost loud enough to hear clearly.">)
 			     (<IN? ,URCHINS ,HERE>
 			      <TELL "envelop the head of each urchin. The
 urchins are ">
-			      <COND (,URCHIN-FLAG
+			      <COND (<FSET? ,URCHINS ,RMUNGBIT> ;,URCHIN-FLAG
 				     <TELL "catatonic.">)
 				    (ELSE
 				     <TELL
@@ -94,7 +94,14 @@ almost machinelike.">)>)>)
 		<CRLF>)
 	       (<RARG? ENTER>
 		<SETG LAIR-FLAG <>>	;"normally what lair room you're in"
+		%<IFSOUND
+		  <COND (<IN? ,URCHINS ,HERE>
+			 <SOUNDS ,S-VOICE ,S-START 2>)
+			(<IN? ,URCHINS ,SLOTS>
+			 <SOUNDS ,S-VOICE ,S-START 8>)>>
 		<QUEUE I-URCHINS -1>)
+	       (<RARG? LEAVE>
+		%<IFSOUND <SOUNDS ,S-VOICE ,S-STOP>>)
 	       (<RARG? BEG>
 		<COND (<P? THROUGH GLOBAL-HOLE>
 		       <DO-WALK ,P?DOWN>)
@@ -116,7 +123,7 @@ almost machinelike.">)>)>)
 	(IN SLOTS)
 	(DESC "urchins")
 	(SYNONYM URCHIN CHILDREN KIDS KID)
-	(FLAGS INVISIBLE PERSON NOABIT)
+	(FLAGS INVISIBLE PERSON NOABIT )
 	(DESCFCN URCHINS-DESC)
 	(ACTION URCHINS-F)>
 
@@ -129,7 +136,7 @@ almost machinelike.">)>)>)
 
 <ROUTINE URCHINS-F ()
 	 <COND (<WINNER? URCHINS>
-		<COND (,URCHIN-FLAG
+		<COND (<FSET? ,URCHINS ,RMUNGBIT> ;,URCHIN-FLAG
 		       <TELL
 ,NO-RESPONSE " It's as though they don't hear you." CR>)
 		      (ELSE
@@ -142,7 +149,8 @@ teeth. They never stop their deep-voiced, incomprehensible chant." CR>)>
 "These are not normal looking urchins. Their clothes are
 muddy and tattered. They are barefoot in midwinter, and covered with
 mud. Around their heads are draped the ">
-		<COND (,URCHIN-FLAG <TELL "stubs of the ">)>
+		<COND (<FSET? ,URCHINS ,RMUNGBIT> ;,URCHIN-FLAG
+		       <TELL "stubs of the ">)>
 		<TELL
 "ropy growths that you've been
 noticing in this area. Although their eyes are open, they stare
@@ -390,7 +398,7 @@ decides against it." CR>)>)
 					      <TELL " (outside)">)>
 				       <CRLF>)>
 				<COND (<AND <NOT <FSET? .RM ,OUTSIDE>>
-					    <NOT <EQUAL? .RM ,TUNNEL>>
+					    <NOT <EQUAL? .RM ,TOMB>>
 					    <NOT <EQUAL?
 						   <META-LOC ,MAINTENANCE-MAN>
 						   .RM>>>
@@ -465,7 +473,7 @@ bicycle thieves. It will defeat any but the heaviest bicycle chains." CR>)
 		<TELL " down the tunnel." CR>)
 	       (<P? (CUT MUNG) URCHIN-WIRE>
 		<COND (<PRSI? ,BOLT-CUTTER>
-		       <SETG URCHIN-FLAG T>
+		       <FSET ,URCHINS ,RMUNGBIT> ;<SETG URCHIN-FLAG T>
 		       <SCORE-OBJECT ,URCHIN-WIRE>
 		       <REMOVE ,URCHIN-WIRE>
 		       <TELL
@@ -480,6 +488,7 @@ disappearing down the tunnel and away. ">
 			      <MOVE ,URCHINS ,HERE>
 			      <TELL
 "Urchins burst forth from the slots. ">)>
+		       %<IFSOUND <SOUNDS ,S-VOICE ,S-STOP>>
 		       <TELL "The effect on the urchins is
 electric (perhaps literally). They twitch, jerk spasmodically, and fall
 to the ground almost in unison. They have lost all interest in you." CR>)
@@ -542,7 +551,7 @@ They are chanting, but the words are unknown to you." CR>)>)>>
 
 <ROUTINE I-URCHINS ()
 	 <COND (<AND <HERE? ,LARGE-CHAMBER>
-		     <NOT ,URCHIN-FLAG>>
+		     <NOT <FSET? ,URCHINS ,RMUNGBIT>> ;<NOT ,URCHIN-FLAG>>
 		<SETG URCHIN-CNT <+ ,URCHIN-CNT 1>>
 		<COND (<EQUAL? ,URCHIN-CNT 1>
 		       <TELL CR
@@ -947,6 +956,7 @@ with the noise.">)>
 		       <NEW-PRSO ,MASS>
 		       <RTRUE>)>)
 	       (<RARG? ENTER>
+		%<IFSOUND <SOUNDS ,S-ZOMBIE>>
 		<FSET ,CURTAIN-DOOR ,LOCKED>
 		<FCLEAR ,CURTAIN-DOOR ,OPENBIT>
 		<QUEUE I-HAND-DIVES -1>
@@ -1431,6 +1441,7 @@ line." CR>)
 		       <TELL
 "There's already " A <FIRST? ,INPUT-SOCKET> " in the socket." CR>)
 		      (ELSE
+		       %<IFSOUND <SOUNDS ,S-SPARKY>>
 		       <TELL
 "You shove the exposed conductors into the socket, producing a shower of
 sparks!">
@@ -1457,6 +1468,7 @@ shrivels and fries." CR>)
 spasmodically. The mass it's connected to quivers, and a horrible
 noise, almost like a huge machine running without oil, issues from
 the thing.">
+			      %<IFSOUND <SOUNDS ,S-CRETIN>>
 			      <COND (<NOT <FSET? ,HACKER ,INVISIBLE>>
 				     <TELL
 " The hacker screams soundlessly and drops into the water.">)>
@@ -1474,6 +1486,7 @@ nothing you've seen before." CR>)
 <GLOBAL HV-CNT 0>
 
 <ROUTINE I-LINE-IN-WATER ()
+	 %<IFSOUND <SOUNDS ,S-SPARKY>>
 	 <CRLF>
 	 <COND (<FSET? ,HIGH-VOLTAGE ,POWERBIT>
 		<TELL
@@ -1598,6 +1611,7 @@ the stone drops to the ground, no longer glowing. The thing is gone." CR>
 	 <COND (<EQUAL? ,END-CNT 1>
 		<REMOVE ,HACKER>
 		<REMOVE ,MASS>
+		%<IFSOUND <SOUNDS ,S-CRETIN ,S-STOP>>
 		<FSET ,OUTPUT-CABLE ,RMUNGBIT>
 		<SETG SCORE <+ ,SCORE 5>>
 		<MOVE ,FROB ,HERE>

@@ -30,6 +30,10 @@ lifeless. A path descends into a shallow bowl of black basalt.")
 
 <ROUTINE RANDOM-YUGGOTH-F (RARG)
 	 <COND (<RARG? ENTER>
+		%<IFSOUND
+			 <SOUNDS ,S-DRONE ,S-START
+				<COND (<HERE? ,YUGGOTH> 2)
+				      (ELSE 4)>>>
 		<QUEUE I-YUGGOTH 2>)>>
 
 <ROOM BOWL-ROOM
@@ -61,6 +65,8 @@ pushed against the pile by the crowd around you.")
 	 <COND ;(<RARG? LOOK>
 		<TELL
  CR>)
+	       (<RARG? ENTER>
+		%<IFSOUND <SOUNDS ,S-DRONE ,S-START 6>>)
 	       (<RARG? BEG>
 		<COND (<VERB? WALK>
 		       <COND (<EQUAL? ,P-WALK-DIR ,P?UP>
@@ -149,13 +155,18 @@ is a symbol." CR>)
 unwilling to approach the stone." CR>)
 		      (<AND <HERE? ,INNER-LAIR>
 			    <NOT <FSET? ,SMOOTH-STONE ,TOUCHBIT>>>
+		       %<IFSOUND
+			 <SOUNDS ,S-CRACK>>
 		       <TELL
 "You pick up the stone. It has a long jagged crack that almost breaks
 it in half. As you pick it up, you feel it bump to one side. Then, as
 you are holding it in your hand, something pushes its way out through
 the crack, breaking the stone into two pieces. Something small, pale,
 and damp blinks its watery eyes at you. It hisses, gaining strength,
-and spreads membranous wings. It takes to the air, at first clumsily, then
+and spreads membranous wings. ">
+		       %<IFSOUND
+			 <SOUNDS ,S-GHIDRA>>
+		       <TELL "It takes to the air, at first clumsily, then
 with increased assurance, and disappears into the gloom. One eerie
 cry drifts back to where you stand." CR CR>
 		       <TELL
@@ -204,9 +215,11 @@ retreats." CR>)
 
 <ROUTINE OBJ-OFF-ROOF (OBJ)
 	 <MOVE .OBJ ,COURTYARD>
+	 %<IFSOUND <SOUNDS ,S-DIE ,S-INIT>>
 	 <TELL
 CTHE .OBJ " disappears over the south edge of the building">
 	 <COND (<IN? ,FLIER ,HERE>
+		%<IFSOUND <SOUNDS ,S-DIE>>
 		<TELL ", and the creature ">
 		<COND (<EQUAL? .OBJ ,SMOOTH-STONE>
 		       <SCORE-OBJECT ,FLIER>
@@ -244,6 +257,7 @@ CTHE .OBJ " disappears over the south edge of the building">
 	 <CRLF>
 	 <COND (<EQUAL? <SETG YUGGOTH-COUNT <+ ,YUGGOTH-COUNT 1>> 1>
 		<MOVE ,LURKER ,HERE>
+		%<IFSOUND <SOUNDS ,S-DRONE ,S-START 8>>
 		<TELL
 "Suddenly, the dimness becomes darkness, and the crowd around you explodes
 with excitement. You are jostled and shoved from all sides. A low keening
@@ -263,6 +277,7 @@ stoops, its mandibles grasping you. You are lifted towards its gaping
 maw. The stench and the sounds issuing from it are overwhelming, and
 you fall unconscious." CR CR>
 		<DEQUEUE I-LURKER-APPEARS>
+		%<IFSOUND <SOUNDS ,S-DRONE ,S-STOP>>
 		<COND (<IN? ,CHAIR ,TERMINAL-ROOM>
 		       <MOVE ,CHAIR ,HERE>
 		       <MOVE ,PLAYER ,CHAIR>)>

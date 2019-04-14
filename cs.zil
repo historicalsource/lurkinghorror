@@ -994,6 +994,7 @@ been punched from below.">
 		       <TELL S
 "You would sooner die than open that panel again.|">)
 		      (<NOT <FSET? ,PRSO ,OPENBIT>>
+		       %<IFSOUND <SOUNDS ,S-MONSTR>>
 		       <FSET ,PRSO ,OPENBIT>
 		       <QUEUE I-PANEL-NOISES -1>
 		       <TELL
@@ -1017,6 +1018,7 @@ there is a response from below." CR>)>)
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <FCLEAR ,PRSO ,OPENBIT>
 		       <DEQUEUE I-PANEL-NOISES>
+		       %<IFSOUND <SOUNDS ,S-MONSTR ,S-STOP>>
 		       <TELL
 "You close the panel. You no longer hear the noises, much to your
 relief." CR>)>)
@@ -1037,6 +1039,7 @@ relief." CR>)>)
 		      (<FSET? ,IRON-PLATE ,OPENBIT>
 		       <FCLEAR ,IRON-PLATE ,OPENBIT>
 		       <DEQUEUE I-PANEL-NOISES>
+		       %<IFSOUND <SOUNDS ,S-MONSTR ,S-STOP>>
 		       <SETG SEEN-PIT? T>
 		       <TELL
 "You peer through the hole, shining your light into the stygian darkness
@@ -1054,6 +1057,7 @@ missing students." CR>)
 
 <ROUTINE I-PANEL-NOISES ("OPT" (NOCR? <>))
 	 <COND (<NOT <HERE? ,CAVE-ALTAR ,CAVE-ROOM>>
+		%<IFSOUND <SOUNDS ,S-MONSTR ,S-STOP>>
 		<DEQUEUE I-PANEL-NOISES>
 		<RFALSE>)
 	       (<AND <NOT .NOCR?> <VERB? LISTEN>>
@@ -1063,6 +1067,7 @@ missing students." CR>)
 		<TELL
 "A low, guttural, groaning and snarling issues from the opening." CR>)
 	       (ELSE
+		%<IFSOUND <SOUNDS ,S-MONSTR ,S-START 2>>
 		<COND (<NOT .NOCR?> <CRLF>)>
 		<TELL
 "You can still hear faint groans and snarls from the larger cave." CR>)>>
@@ -1116,6 +1121,7 @@ leads down, and a door leads north.")
 
 <ROUTINE TEMPORARY-LAB-F (RARG)
 	 <COND (<RARG? ENTER>
+		;<IFSOUND <SOUNDS ,S-STORMY ,S-STOP>>
 		<DEQUEUE I-FREEZE-TO-DEATH>
 		<COND (<G? ,FREEZE-COUNT 0>
 		       <SETG FREEZE-COUNT 0>
@@ -1758,6 +1764,8 @@ CTHE ,ELEVATOR-DOOR " bounce against ">
 					    <SETG SCORE
 						  <+ ,SCORE ,BRICK-WALL-SCORE>>
 					    <SETG BRICK-WALL-SCORE 0>
+					    %<IFSOUND
+					      <SOUNDS ,S-ELCRSH>>
 					    <COND (<HEAR-CHAIN?>
 						   <CHAIN-NOISES>
 						   <TELL
@@ -2600,6 +2608,8 @@ red. The hatch is ">
 		       <FSET ,TUNNEL ,ONBIT>
 		       <FSET ,TUNNEL-EAST ,ONBIT>
 		       <FSET ,TUNNEL-WEST ,ONBIT>
+		       %<IFSOUND
+			 <SOUNDS ,S-HATCH>>
 		       <TELL
 "The hatch is heavy, and its hinges are rusty, but ">
 		       <COND (<HERE? ,TUNNEL>
@@ -3979,6 +3989,7 @@ much weight, and put most of it on the floor. Much easier! ">)>
 		       <TELL
 "The valve screeches open. A jet spray of live steam issues from it,
 filling the tunnel in front of you.">
+		       %<IFSOUND <SOUNDS ,S-ATTACK ,S-STOP>>
 		       <COND (,RATS-HERE
 			      <SCORE-OBJECT ,PRESSURE-VALVE>
 			      <MOVE ,DEAD-RAT ,HERE>
@@ -4114,6 +4125,7 @@ consumed in short order.">)
 
 <ROUTINE I-RATS ("AUX" (ORAT <LOC ,RATS>))
 	 <COND (<IN? ,RATS ,GLOBAL-OBJECTS>
+		%<IFSOUND <SOUNDS ,S-ATTACK ,S-START 2>>
 		<MOVE ,RATS ,TUNNEL-WEST>
 		<COND (<IN-TUNNEL?>
 		       <TELL CR
@@ -4122,6 +4134,7 @@ consumed in short order.">)
 	       (<NOT <IN? ,RATS ,HERE>>
 		<COND (<NOT <ZERO? ,RATS-HERE>>
 		       <COND (<IN-TUNNEL?>
+			      %<IFSOUND <SOUNDS ,S-ATTACK 8>>
 			      <MOVE ,RATS ,HERE>)
 			     (<OR <AND <HERE? ,TOMB>
 				       <FSET? ,ACCESS-HATCH ,OPENBIT>>
@@ -4191,12 +4204,15 @@ exposing its own neck, and on its neck is branded a symbol.">)>)
 		<COND (<NOT <IN-TUNNEL?>>
 		       <RFALSE>)
 		      (<EQUAL? ,RATS-WAITING 1>
+		       %<IFSOUND <SOUNDS ,S-ATTACK ,S-START 3>>
 		       <TELL CR
 "The sound is louder. It sounds like small animals. Is it rats?" CR>)
 		      (<EQUAL? ,RATS-WAITING 2>
+		       %<IFSOUND <SOUNDS ,S-ATTACK ,S-START 4>>
 		       <TELL CR
 "The sound continues. It's almost certainly rats." CR>)
 		      (ELSE
+		       %<IFSOUND <SOUNDS ,S-ATTACK ,S-START 6>>
 		       <TELL CR
 "The rat sounds are growing louder, but you still can't see any rats." CR>)>)>>
 
@@ -4211,6 +4227,7 @@ exposing its own neck, and on its neck is branded a symbol.">)>)
 		<RTRUE>)>>
 
 <ROUTINE I-RATS-GO-AWAY ()
+	 %<IFSOUND <SOUNDS ,S-ATTACK ,S-STOP>>
 	 <DEQUEUE I-RATS>
 	 <MOVE ,RATS ,GLOBAL-OBJECTS>
 	 <SETG RATS-HERE 0>
@@ -4375,13 +4392,15 @@ CTHE ,RATS " sound annoyed and hungry." CR>)>>
       (IN ROOMS)
       (DESC "Mass. Ave.")
       (LDESC
-"This is the main entrance to the campus buildings.
+%<STRING "This is the main entrance to the campus buildings.
 Blinding snow obscures the stately Grecian columns and rounded
 dome to the east. You can barely make out the inscription on
 the pediment (which reads \"George Vnderwood Edwards, Fovnder;
-P. David Lebling, Architect\").
+P. David Lebling, Architect"
+	 <COND (,SOUND-EFFECTS? "; Russell Lieblich, Sovnd Engineer")
+	       (ELSE "")> "\").
 West across Massachusetts Avenue are
-other buildings, but you can't see them.")
+other buildings, but you can't see them.">)
       (EAST TO INF-1)
       (IN TO INF-1)
       (GLOBAL OUTSIDE-DOOR)
@@ -4398,6 +4417,7 @@ other buildings, but you can't see them.")
 		<EXIT-FROM-COLD>)>>
 
 <ROUTINE EXIT-FROM-COLD ()
+	 ;<IFSOUND <SOUNDS ,S-STORMY ,S-STOP>>
 	 <DEQUEUE I-FREEZE-TO-DEATH>
 	 <COND (<G? ,FREEZE-COUNT 0>
 		<SETG FREEZE-COUNT 0>
@@ -4764,6 +4784,7 @@ exactly what he meant by the word \"bribe.\"" CR>)
 		       <TELL ", with rhythms and cadences that make
 you want to stop your ears. The room appears to be getting darker." CR>)
 		      (<EQUAL? ,TIED-UP? 5>
+		       %<IFSOUND <SOUNDS ,S-PSYCHO ,S-START 2>>
 		       <MOVE ,MIST ,HERE>
 		       <TELL CR
 "A thick black mist begins to form in the room. Parts are darker, and
@@ -4778,6 +4799,7 @@ hysteria">)>
 		       <TELL ", and you realize the calls are being
 answered." CR>)
 		      (<EQUAL? ,TIED-UP? 6>
+		       %<IFSOUND <SOUNDS ,S-PSYCHO ,S-START 4>>
 		       <TELL CR
 "The room is now freezing cold, though the windows are shuttered and
 tightly curtained. Low, bone-rattling vibrations shake the room in
@@ -4793,6 +4815,7 @@ cadence with the chant. The black mist is growing thicker. The professor ">
 "chants more rapidly, producing strange guttural sounds, scarcely
 human." CR>)>)
 		      (<EQUAL? ,TIED-UP? 7>
+		       %<IFSOUND <SOUNDS ,S-PSYCHO ,S-START 6>>
 		       <COND (<HERE? ,ALCHEMY-LAB>
 			      <TELL CR
 "The black mist swirls wildly around the room, and a deep bass voice
@@ -4814,6 +4837,7 @@ mist grabs at him." CR>)
 			      <TELL CR
 "You hear a deep bass voice, and a softer, pleading baritone." CR>)>)
 		      (<EQUAL? ,TIED-UP? 8>
+		       %<IFSOUND <SOUNDS ,S-PSYCHO ,S-START 8>>
 		       <REMOVE ,MIST>
 		       <COND (<OR <IN? ,PLAYER ,PENTAGRAM>
 				  <IN? ,PLAYER ,ALCHEMY-LAB>>
@@ -4844,7 +4868,8 @@ then the sound of equipment smashing. ">
 			      <TELL
 " pours a blinding flash of light. Finally you hear an almost
 inaudible whimper, then nothing. The light fades">
-			      <IN-DARK?>)>)>)
+			      <IN-DARK?>
+			      %<IFSOUND <SOUNDS ,S-PSYCHO ,S-STOP>>)>)>)
 	       (<HERE? ,ALCHEMY-DEPT>
 		<TELL CR
 CTHE ,PROFESSOR " ">
@@ -5848,6 +5873,8 @@ S "misses by a mile""!" CR>)
 			      <TELL
 S "misses by a mile"" as " THE ,MAINTENANCE-MAN " slips again!" CR>)
 			     (<EQUAL? .W ,AXE>
+			      %<IFSOUND
+				<SOUNDS ,S-BLOOD>>
 			      <COND (<VERB? THROW>
 				     <TELL
 "sails through the air, end over end, and makes a direct hit in">)
@@ -6959,6 +6986,7 @@ tip-top of the dome.")
 		       <EXIT-TO-COLD>)>)>>
 
 <ROUTINE EXIT-TO-COLD ()
+	 ;<IFSOUND <SOUNDS ,S-STORMY>>
 	 <QUEUE I-FREEZE-TO-DEATH 2 T>
 	 <TELL
 "You enter the freezing, biting cold of the blizzard." CR CR>>

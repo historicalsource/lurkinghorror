@@ -2,6 +2,88 @@
 			   The Lurking Horror
 	(c) Copyright 1986 Infocom, Inc. All Rights Reserved."
 
+"SOUND sound-id,[action],[volume]"
+
+<ROUTINE SOUNDS (N "OPT" (OP ,S-START) (VOL 8))
+	 <COND (<ZERO? .OP> <SET OP ,S-START>)>
+	 <COND (<AND <L? <GET ,SOUND-FLAG 0> 0>
+		     <EQUAL? .OP ,S-START>>
+		<PUT ,SOUND-FLAG 0 1>
+		<TELL CR
+"[Use $SOUND to toggle sound usage on and off.]" CR CR>)>
+	 <COND (<EQUAL? .N ,S-DRONE ,S-ATTACK ,S-PSYCHO ,S-MONSTR
+			,S-VOICE ,S-ZOMBIE ,S-CRETIN>
+		<PUT ,SOUND-FLAG 1 <+ <* .N 16> .VOL>>)>
+	 <COND (<GET ,SOUND-FLAG 0>
+		<COND (<EQUAL? .OP ,S-STOP>
+		       <PUT ,SOUND-FLAG 0 1>
+		       <PUT ,SOUND-FLAG 1 0>)
+		      (<EQUAL? .N ,S-DRONE ,S-ATTACK ,S-PSYCHO ,S-MONSTR
+			       ,S-VOICE ,S-ZOMBIE ,S-CRETIN>
+		       <PUT ,SOUND-FLAG 0 <+ <* .N 16> .VOL>>
+		       <PUT ,SOUND-FLAG 1 <+ <* .N 16> .VOL>>)
+		      (ELSE
+		       <PUT ,SOUND-FLAG 0 1>
+		       <PUT ,SOUND-FLAG 1 0>)>
+		<COND (<EQUAL? .OP ,S-START>
+		       <SOUND .N .OP .VOL>)
+		      (ELSE
+		       <SOUND .N .OP>)>)>>
+
+<ROUTINE KILL-SOUNDS ()
+	 <SOUNDS 0 ,S-STOP>
+	 <SOUNDS 0 ,S-CLEANUP>>
+
+<SYNTAX $SOUND = V-$SOUND>
+
+<GLOBAL SOUND-FLAG <TABLE -1 0>>
+
+<ROUTINE V-$SOUND ("AUX" X Y)
+	 <SET X <GET ,SOUND-FLAG 1>>
+	 <SET Y <GET ,SOUND-FLAG 0>>
+	 <TELL "Sound ">
+	 <COND (.Y
+		<KILL-SOUNDS>
+		<COND (<N==? .Y 1> <PUT ,SOUND-FLAG 1 .Y>)
+		      (ELSE <PUT ,SOUND-FLAG 1 0>)>
+		<PUT ,SOUND-FLAG 0 0>
+		<TELL "off." CR>)
+	       (ELSE
+		<PUT ,SOUND-FLAG 0 1>
+		<COND (.X
+		       %<IFSOUND <SOUNDS </ .X 16>
+					 ,S-START
+					 <MOD .X 16>>>)>
+		<TELL "on." CR>)>>
+
+;"sound operations"
+<CONSTANT S-INIT 1>
+<CONSTANT S-START 2>
+<CONSTANT S-STOP 3>
+<CONSTANT S-CLEANUP 4>
+
+;"sound ids		(sounds marked with a * are looping sounds)"
+<CONSTANT S-BEEP 1>
+<CONSTANT S-BOOP 2>
+<CONSTANT S-DRONE 10>	;"33K * drone of frob worshippers in dream"
+<CONSTANT S-BLOOD 3>	;"50K axe hitting m.m."
+<CONSTANT S-HATCH 6>	;"46K rusty hatch opening"
+<CONSTANT S-ATTACK 4>	;"21K * rats attacking"
+<CONSTANT S-ELCRSH 7>	;"60K elevator crashing"
+<CONSTANT S-DIE 12>	;"44K screeching bird-like howl -- flier"
+<CONSTANT S-PSYCHO 13>	;"57K * weird psychotic voice -- demon"
+<CONSTANT S-MONSTR 18>	;"50K * sick pigs -- pit in altar area"
+<CONSTANT S-VOICE 15>	;"52K * electronic one-two-three -- urchins"
+<CONSTANT S-ZOMBIE 17>	;"39K * electronic frogs and grasshoppers -- frob"
+<CONSTANT S-SPARKY 11>	;"40K electrical zap -- line in water"
+<CONSTANT S-CRETIN 16>	;"25K * monster from the id -- frob frying"
+<CONSTANT S-CRACK 8>	;" 8K crack of stone"
+<CONSTANT S-GHIDRA 9>	;"58K frob flapping away"
+
+;"sounds cut for reasons of space"
+;<CONSTANT S-SQUEAL 5>	;"23K single rat"
+;<CONSTANT S-STORMY 14>	;"54K * storm"
+
 <DIRECTIONS ;"Do not change the order of the first 8 without consulting MARC!"
  	    NORTH NE EAST SE SOUTH SW WEST NW UP DOWN IN OUT>
 
@@ -125,7 +207,7 @@
 <OBJECT PSEUDO-OBJECT
 	(IN GLOBAL-OBJECTS)
 	(DESC "pseudo")
-	(ACTION ME-F)>
+	(ACTION RANDOM-PSEUDO)>
 
 <OBJECT IT
 	(IN GLOBAL-OBJECTS)
